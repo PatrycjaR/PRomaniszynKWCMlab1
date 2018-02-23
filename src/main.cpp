@@ -1,5 +1,5 @@
 #include "LaborkaConfig.h"
-
+#include "iostream"
 #ifdef USE_TRIGONOMETRY_DEGREE
 #include "trygonometria.h"
 #else
@@ -7,16 +7,25 @@
 #define _USE_MATH_DEFINES
 #endif
 
-int main(){
+
+
+int main(int arg, char ** argv){
+    
+    double liczba;
     
 #ifdef USE_TRIGONOMETRY_DEGREE
-    double a=degreemath::sin( 0);
-    double b=degreemath::cos(90);
-    double c=degreemath::tg(45);
+    if (arg>1) {
+        liczba=std::stod(argv[1]);
+    }
+    
+    double a=degreemath::sin(liczba);
+    double b=degreemath::cos(liczba);
+    double c=degreemath::tg(liczba);
+    std::cout<<a<<std::endl;
 #else
-    double a=std::sin(0);
-    double b=std::cos(90);
-    double c=std::tan(45);
+    double a=std::sin(arg);
+    double b=std::cos(arg);
+    double c=std::tan(arg);
     return a;
 #endif
     

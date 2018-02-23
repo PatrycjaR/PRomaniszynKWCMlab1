@@ -3,7 +3,7 @@ project (PierwszyProgram)
 add_executable(Laborka main.cpp)
 
 option (USE_TRIGONOMETRY_DEGREE
-        "Czy argumentami funkcji trygonometrycznych maja byc stopnie" ON)
+        "Czy argumentami funkcji trygonometrycznych maja byc stopnie" OFF)
 
 if (USE_TRIGONOMETRY_DEGREE)
   include_directories ("${PROJECT_SOURCE_DIR}/Trygonometria")
@@ -16,3 +16,17 @@ configure_file (
   "${PROJECT_BINARY_DIR}/LaborkaConfig.h"
   )
 include_directories("${PROJECT_BINARY_DIR}")
+
+enable_testing()
+
+option(BUILD_TESTS "Czy testy" ON)
+
+if(BUILD_TESTS)
+add_test (LaborkaPodstawowyTest Laborka)
+add_test (LaborkaWynikSin45 Laborka 45)
+set_tests_properties (LaborkaWynikSin45
+PROPERTIES PASS_REGULAR_EXPRESSION "0[.,]70710")
+add_test (Laborka3sek Laborka)
+set_tests_properties (Laborka3sek
+PROPERTIES TIMEOUT 3)
+endif(BUILD_TESTS)
